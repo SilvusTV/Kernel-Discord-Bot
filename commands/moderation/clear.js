@@ -38,7 +38,7 @@ module.exports = {
             let i = 0;
             const filteredTargetMessages = [];
             (await messagesToDelete).filter(msg => {
-                if (msg.author.id == user.id && amountToDelete > i) {
+                if (msg.author.id === user.id && amountToDelete > i) {
                     filteredTargetMessages.push(msg), i++;
                 }
             });
