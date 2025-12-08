@@ -1,10 +1,18 @@
-const {Client, Collection} = require('discord.js');
+const {Client, Collection, GatewayIntentBits} = require('discord.js');
 const dotenv = require('dotenv');
 const CommandUtil = require('./utils/handlers/CommandUtil.js');
 const EventUtil = require('./utils/handlers/EventUtil.js');
 const SelectUtil = require('./utils/handlers/SelectUtil.js');
 dotenv.config();
-const client = new Client({intents: 579});
+// Remplace l'entier magique des intents par des bits nommés
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers, // intent privilégié: assurez-vous qu'il est activé dans le portail Discord
+    GatewayIntentBits.GuildInvites,
+    GatewayIntentBits.GuildMessages,
+  ],
+});
 client.commands = new Collection();
 ['selects'].forEach(x => client[x] = new Collection());
 [CommandUtil, EventUtil, SelectUtil].forEach(handler => handler(client));
