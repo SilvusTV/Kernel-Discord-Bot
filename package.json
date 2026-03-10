@@ -1,6 +1,6 @@
 {
   "name": "discord_bot",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -13,16 +13,19 @@
   "author": "Silvus_tv",
   "license": "ISC",
   "dependencies": {
+    "better-sqlite3": "^12.6.2",
     "chalk": "4.1.2",
     "child_process": "1.0.2",
     "dayjs": "1.11.19",
     "discord.js": "^14.25.1",
     "dotenv": "17.2.3",
+    "drizzle-orm": "^0.45.1",
     "glob": "7.2.3",
     "node-cron": "4.2.1",
     "sqlite3": "5.1.7"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
     "@types/glob": "^8.1.0",
     "@types/node": "^22.9.0",
     "ts-node": "^10.9.2",

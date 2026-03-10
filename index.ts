@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import CommandUtil from './utils/handlers/CommandUtil';
 import EventUtil from './utils/handlers/EventUtil';
 import SelectUtil from './utils/handlers/SelectUtil';
+import { closeDb } from './utils/db';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ const client = new Client({
     GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildInvites,
     GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
   ],
 });
 
@@ -22,6 +24,7 @@ const client = new Client({
 [CommandUtil, EventUtil, SelectUtil].forEach((handler: (c: Client) => unknown) => handler(client));
 
 process.on('exit', (code) => {
+  closeDb();
   console.log(`le processus s'est arrêté avec le code ${code}!`);
 });
 process.on('uncaughtException', (err, origin) => {

@@ -86,6 +86,30 @@ Ce projet n'est pas un bot « clé en main »: c'est une base solide pensée pou
 
 ---
 
+## 🧠 ORM (Drizzle + SQLite)
+
+Le kernel inclut une couche ORM légère avec **Drizzle**:
+
+- `utils/db/schema.ts`: mapping des tables SQL -> types TS.
+- `utils/db/client.ts`: client SQLite singleton + instance Drizzle.
+- `utils/db/repositories/`: repositories (CRUD, requêtes métier, transactions).
+
+Exemple:
+
+```ts
+import { ConfigRepository, CONFIG_KEYS } from './utils/db';
+
+const repo = new ConfigRepository();
+
+// Initialise les valeurs par défaut de config pour une guilde
+repo.ensureDefaultGuildConfig(interaction.guildId!);
+
+// lecture
+const prefix = repo.getValue(interaction.guildId!, CONFIG_KEYS.customCommandPrefix) || '!';
+```
+
+---
+
 ## ⚙️ Scripts NPM
 
 - `npm run dev` — Lancer le bot en développement avec `ts-node`.

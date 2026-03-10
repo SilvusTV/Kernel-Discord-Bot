@@ -1,11 +1,19 @@
 import { ActivityType } from 'discord.js';
 import Logger from '../../utils/Logger';
+import { ConfigRepository, ensureDatabaseInitialized } from '../../utils/db';
 
 export = {
   name: 'clientReady',
   once: true,
   async execute(client: any) {
+    // Ensure DB exists and is initialized from schema if missing
+    await ensureDatabaseInitialized();
+    const configRepository = new ConfigRepository();
     const guildsCount = await client.guilds.fetch();
+
+    guildsCount.forEach((guild: any) => {
+      configRepository.ensureDefaultGuildConfig(guild.id);
+    });
 
     client.user.setPresence({ activities: [{ name: 'You', type: ActivityType.Watching }], status: 'online' });
 
